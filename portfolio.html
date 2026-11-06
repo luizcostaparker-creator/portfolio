@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfólio · Luiz Costa</title>
+<meta name="description" content="Ferramentas que Luiz Costa criou na obra: Central de Controle Civil, Mapa Geral, Memorial de Pavimentação e mais.">
+<meta property="og:image" content="img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/portfolio.css">
+</head>
+<body>
+<header class="top"><a href="index.html">← Início</a><span class="k">Portfólio</span><a href="sobre.html">Conheça sobre mim</a></header>
+<main>
+  <section class="intro">
+    <h1>Ferramentas que criei na obra</h1>
+    <p>Passe o mouse para espiar. Clique para abrir a pasta.</p>
+  </section>
+  <div class="grid" id="grid"></div>
+</main>
+
+<div class="open" id="open" role="dialog" aria-modal="true" aria-labelledby="ot">
+  <div class="wrap">
+    <button type="button" class="close" id="fechar">Fechar ✕</button>
+    <div class="fan" id="fan" role="group" aria-roledescription="carrossel"></div>
+    <div class="nav"><button type="button" id="prev" aria-label="Imagem anterior">‹</button><div class="cap" aria-live="polite" id="cap"></div><button type="button" id="next" aria-label="Próxima imagem">›</button></div>
+    <div class="feats" id="feats"></div>
+    <p class="credito" id="credito"></p>
+  </div>
+</div>
+
+<script type="module" src="js/pastas.js"></script>
+</body>
+</html>
