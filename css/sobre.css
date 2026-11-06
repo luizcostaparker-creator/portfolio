@@ -25,6 +25,8 @@ h1{font-size:clamp(40px,6vw,72px);line-height:1;letter-spacing:-.03em;margin-top
 .dado{display:block;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#0f141c}
 .dado small{display:block;color:var(--mut);font:10px ui-monospace,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase}
 .dado b{display:block;font-size:15px;color:var(--acc)}
+.dado.frase{font-size:13px;line-height:1.45}
+.dado.frase b{display:inline;font-size:inherit}
 .dado i{display:block;font-style:normal;font-size:11px;color:var(--mut);margin-top:2px}
 @media (max-width:620px){.balao{position:fixed;left:5vw;right:5vw;top:auto;bottom:16px;width:auto;grid-template-columns:1fr}.balao::before{display:none}.mapa iframe{height:170px}}
 h2{font-size:28px;letter-spacing:-.02em;margin:60px 0 8px}

@@ -38,9 +38,14 @@ const cards = ITENS.map(([a, , s], i) => {
 });
 const vis = new Array(N).fill(0);
 
+// medidas lidas só no início e ao redimensionar: ler layout a cada quadro, depois de escrever estilos, trava o celular
+let k = 1, caixa = stage.getBoundingClientRect();
+const mede = () => { caixa = stage.getBoundingClientRect(); k = Math.min(1, caixa.width / 700); }; // degraus menores em telas estreitas
+mede(); addEventListener('resize', mede);
+
 function quadro() {
-  off += (alvo - off) * (reduz ? 1 : 0.09);
-  const k = Math.min(1, stage.clientWidth / 700); // degraus menores em telas estreitas
+  // arrastando, a escada segue o dedo sem atraso; solta, desliza com inércia até encaixar
+  if (x0 !== null) off = alvo; else off += (alvo - off) * (reduz ? 1 : 0.12);
   let frente = 0, menor = 9;
   cards.forEach((c, i) => {
     const p = ciclo(i - off, N);
@@ -67,16 +72,25 @@ function quadro() {
 }
 
 stage.addEventListener('wheel', (e) => { e.preventDefault(); parado = 0; alvo += e.deltaY * 0.004; }, { passive: false });
+// toque: arrastar para baixo ou para a esquerda desce a escada (ela é diagonal, os dois eixos valem)
+let y0 = 0, vel = 0, tUlt = 0, aUlt = 0;
 stage.addEventListener('pointermove', (e) => {
-  const r = stage.getBoundingClientRect();
-  mx = (e.clientX - r.left) / r.width - 0.5; my = (e.clientY - r.top) / r.height - 0.5;
-  if (x0 !== null) alvo = a0 - (e.clientX - x0) / 120;
+  mx = (e.clientX - caixa.left) / caixa.width - 0.5; my = (e.clientY - caixa.top) / caixa.height - 0.5;
+  if (x0 === null) return;
+  alvo = a0 + ((e.clientY - y0) - (e.clientX - x0)) / 110;
+  const t = performance.now(); if (t > tUlt) { vel = (alvo - aUlt) / (t - tUlt); tUlt = t; aUlt = alvo; }
 });
 stage.addEventListener('pointerdown', (e) => {
   if (e.pointerType === 'mouse') return;
-  x0 = e.clientX; a0 = alvo; parado = 0; stage.classList.add('drag');
+  x0 = e.clientX; y0 = e.clientY; a0 = aUlt = alvo; tUlt = performance.now(); vel = 0; parado = 0;
+  stage.setPointerCapture(e.pointerId); stage.classList.add('drag');
 });
-const solta = () => { if (x0 === null) return; x0 = null; alvo = Math.round(alvo); stage.classList.remove('drag'); };
+const solta = () => {
+  if (x0 === null) return;
+  x0 = null; stage.classList.remove('drag');
+  if (performance.now() - tUlt > 90) vel = 0; // dedo parou antes de soltar: sem inércia
+  alvo = Math.round(alvo + Math.max(-3, Math.min(3, vel * 220))); // inércia: um "peteleco" avança alguns degraus
+};
 addEventListener('pointerup', solta);
 addEventListener('pointercancel', solta);
 addEventListener('keydown', (e) => {

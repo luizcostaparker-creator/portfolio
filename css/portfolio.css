@@ -76,6 +76,8 @@ h1{font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;margin:8px 0 6px}
 .credito{margin-top:18px;color:var(--mut);font-size:12px}
 .credito:empty{display:none}
 .convite{max-width:760px;margin:0 auto 70px;width:calc(100% - 40px)}
+.convite p{font-size:16px;color:#c3cbd6}
+@media (max-width:600px){.convite p{font-size:14px}}
 
 @media (max-width:600px){.fan{height:430px}.lip b{font-size:20px}.lip{padding:0 18px}.folder.big{width:300px}}
 @media (prefers-reduced-motion:reduce){.folder{opacity:1;transform:none}}
