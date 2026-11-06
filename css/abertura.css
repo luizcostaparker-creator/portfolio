@@ -1,40 +1,48 @@
-body{overflow:hidden;height:100vh}
-.scene{position:fixed;inset:0;perspective:900px;perspective-origin:50% 58%;overflow:hidden}
-.rail{position:absolute;left:50%;top:58%;transform-style:preserve-3d}
-.rail.l{transform:translate(-50%,-50%) translateX(calc(-1*var(--x0))) rotateY(72deg)}
-.rail.r{transform:translate(-50%,-50%) translateX(var(--x0)) rotateY(-72deg)}
-.p{position:absolute;width:380px;height:253px;margin:-126px 0 0 -190px;border-radius:12px;overflow:hidden;
-   background:var(--card);border:1px solid var(--line);box-shadow:-18px 0 40px rgba(0,0,0,.55);opacity:0}
-.l .p{animation:goL 1.5s cubic-bezier(.16,.84,.3,1) forwards}
-.r .p{animation:goR 1.5s cubic-bezier(.16,.84,.3,1) forwards}
-@keyframes goL{0%{transform:translateX(var(--far)) rotateY(-32deg);opacity:0}30%{opacity:1}100%{transform:translateX(var(--to)) rotateY(-32deg);opacity:1}}
-@keyframes goR{0%{transform:translateX(calc(-1*var(--far))) rotateY(32deg);opacity:0}30%{opacity:1}100%{transform:translateX(calc(-1*var(--to))) rotateY(32deg);opacity:1}}
-.p header{display:flex;gap:6px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line);font:600 10px/1 system-ui;color:var(--mut);letter-spacing:.06em}
-.p header i{width:7px;height:7px;border-radius:50%;background:var(--acc)}
-.p img{display:block;width:100%;height:calc(100% - 27px);object-fit:cover;object-position:top}
-.hero{position:relative;z-index:2;height:100vh;text-align:center;padding:9vh 20px 0;pointer-events:none}
-/* .01 e não 0: com o texto todo em opacidade 0 o Chrome nunca registra o FCP */
-.hero>div{pointer-events:auto;opacity:.01;transform:translateY(14px);animation:in .9s 2.3s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes in{to{opacity:1;transform:none}}
-h1{font-size:clamp(34px,5vw,64px);line-height:1.05;letter-spacing:-.025em;margin:16px 0 0;font-weight:700}
-h1 span{color:var(--mut);font-weight:500}
-.cta{position:fixed;left:50%;top:58%;transform:translate(-50%,-50%);z-index:3;display:flex;flex-direction:column;gap:12px;width:230px}
-/* sombra escura atrás dos botões: separa dos painéis (no celular eles cobrem quase a tela) */
-.cta::before{content:"";position:absolute;inset:-60px -90px;z-index:-1;background:radial-gradient(closest-side,rgba(10,13,18,.92),rgba(10,13,18,.6) 60%,transparent);pointer-events:none;opacity:0;animation:fade .6s 2.2s ease-out forwards}
-.cta a{padding:14px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;text-align:center;opacity:0}
-.cta .a{position:relative;z-index:2;background:var(--acc);color:var(--bg);box-shadow:0 10px 30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.2) inset;animation:pop .6s 2.3s cubic-bezier(.2,.7,.2,1) forwards}
-.cta .b{position:relative;z-index:1;background:var(--bg);border:1.5px solid var(--acc);color:var(--fg);box-shadow:0 10px 30px rgba(0,0,0,.6);animation:drop .7s 2.8s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes pop{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-@keyframes drop{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
-/* contatos centralizados no rodapé */
-.soc.rodape{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:3;opacity:0;animation:fade .6s 3.2s ease-out forwards}
-@keyframes fade{to{opacity:1}}
-.soc.rodape a{background:rgba(18,24,33,.92);box-shadow:0 8px 24px rgba(0,0,0,.6)}
-.soc.rodape a span{top:auto;bottom:calc(100% + 8px)}
-@media (max-height:520px){.soc.rodape{display:none}}
-@media (prefers-reduced-motion:reduce){
-  .cta::before,.soc.rodape,.cta a,.hero>div{opacity:1;transform:none}
-  .soc.rodape{transform:translateX(-50%)}
-  .l .p{opacity:1;transform:translateX(var(--to)) rotateY(-32deg)}
-  .r .p{opacity:1;transform:translateX(calc(-1*var(--to))) rotateY(32deg)}
+body{height:100vh;overflow:hidden;background-image:radial-gradient(#141b26 1px,transparent 1px);background-size:22px 22px}
+.layout{display:grid;grid-template-columns:1.15fr 1fr;height:100vh}
+
+/* esquerda: escada de telas dos projetos */
+.stage{position:relative;perspective:1400px;perspective-origin:40% 30%;overflow:hidden;cursor:grab;touch-action:pan-y}
+.stage.drag{cursor:grabbing}
+.card{--w:min(34vw,460px);position:absolute;left:60%;top:64%;width:var(--w);aspect-ratio:16/9;margin:calc(var(--w)*-.28) 0 0 calc(var(--w)*-.5);
+      border-radius:12px;overflow:hidden;background:var(--card);border:1px solid var(--line);
+      box-shadow:-24px 30px 60px rgba(0,0,0,.6);will-change:transform,opacity;opacity:0}
+.card img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none}
+.card::after{content:"";position:absolute;inset:0;background:var(--bg);opacity:var(--sombra,.35);transition:opacity .35s;pointer-events:none}
+.card.on::after{opacity:0}
+.card.on{border-color:rgba(245,165,36,.7);box-shadow:-24px 30px 70px rgba(0,0,0,.7),0 0 0 1px rgba(245,165,36,.35)}
+.legenda{position:absolute;left:28px;bottom:28px;z-index:300;max-width:60%;pointer-events:none}
+.legenda small{display:block;font:600 11px/1 ui-monospace,Consolas,monospace;letter-spacing:.14em;color:var(--acc)}
+.legenda b{display:block;font-size:18px;margin-top:6px}
+.legenda span{display:block;color:var(--mut);font-size:13px;margin-top:2px}
+
+/* direita: textos, botões e contatos */
+.lado{display:flex;flex-direction:column;justify-content:center;padding:0 7vw 0 3vw;position:relative;z-index:400;background:linear-gradient(90deg,transparent,var(--bg) 18%)}
+h1{font-size:clamp(34px,4.4vw,62px);line-height:1.04;letter-spacing:-.025em;margin-top:18px;font-weight:700}
+h1 span{display:block;color:var(--mut);font-weight:500}
+.cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.cta a{padding:14px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none}
+.cta .a{background:var(--acc);color:var(--bg)}
+.cta .a:hover{background:#f7b955}
+.cta .b{border:1.5px solid var(--acc);color:var(--fg)}
+.cta .b:hover{background:rgba(245,165,36,.1)}
+.lado .soc{margin-top:28px}
+
+/* entrada do texto */
+.lado>*{opacity:0;transform:translateY(12px);animation:sobe .7s cubic-bezier(.2,.7,.2,1) forwards}
+.lado>:nth-child(2){animation-delay:.1s}.lado>:nth-child(3){animation-delay:.2s}.lado>:nth-child(4){animation-delay:.3s}
+@keyframes sobe{to{opacity:1;transform:none}}
+
+/* celular: uma tela só — texto em cima, escada embaixo ocupando o resto */
+@media (max-width:860px){
+  body{height:100svh}
+  .layout{grid-template-columns:1fr;grid-template-rows:auto 1fr;height:100svh}
+  .stage{order:2;min-height:0}
+  .lado{padding:28px 22px 6px;background:none}
+  h1{margin-top:12px}
+  .cta{margin-top:20px}.cta a{padding:12px 18px}
+  .lado .soc{margin-top:16px}
+  .card{--w:62vw;left:56%;top:68%}
+  .legenda{left:22px;bottom:18px;max-width:80%;padding:10px 12px;border-radius:10px;background:rgba(10,13,18,.85)}
 }
+@media (prefers-reduced-motion:reduce){.lado>*{opacity:1;transform:none}}

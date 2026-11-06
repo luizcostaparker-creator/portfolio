@@ -1,5 +1,5 @@
-import { PROJETOS, srcPrint, retrato } from './projetos.js';
-import { coverflow } from './geo.js';
+import { PROJETOS, srcPrint, retrato } from './projetos.js?v=2';
+import { coverflow } from './geo.js?v=2';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };

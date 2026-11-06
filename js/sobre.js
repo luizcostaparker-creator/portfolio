@@ -1,4 +1,4 @@
-import { esfera, grade } from './geo.js';
+import { esfera, grade } from './geo.js?v=2';
 
 document.documentElement.classList.add('js');
 const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;

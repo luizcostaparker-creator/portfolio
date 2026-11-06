@@ -1,13 +1,7 @@
 // Geometria pura (sem DOM) da abertura, do carrossel e da grade/esfera.
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-
-export function corredor(W) {
-  const x0 = Math.max(W * 0.4, 260);
-  const far = (x0 / Math.cos((72 * Math.PI) / 180)) * 0.8;
-  const step = 190;
-  const n = Math.min(10, Math.max(3, Math.floor((far * 0.75 + x0 * 0.9) / step) + 1));
-  return { x0, far, n, step };
-}
+// escada da abertura: posição contínua do cartão i, dando a volta (faixa [-1.5, n-1.5))
+export function ciclo(p, n) { return ((p % n) + n + 1.5) % n - 1.5; }
 
 export function coverflow(d) {
   const a = Math.abs(d);

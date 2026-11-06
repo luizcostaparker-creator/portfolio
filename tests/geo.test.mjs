@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { corredor, coverflow, grade, esfera } from '../js/geo.js';
+import { ciclo, coverflow, grade, esfera } from '../js/geo.js';
 
-test('corredor', () => {
-  assert.ok(corredor(1920).n >= 6);
-  assert.equal(corredor(360).n, 4); // fórmula do protótipo dá 4 (brief dizia 3)
-  assert.equal(corredor(360).step, 190);
+test('ciclo', () => {
+  assert.equal(ciclo(0, 10), 0);
+  assert.equal(ciclo(-1, 10), -1);
+  assert.equal(ciclo(-2, 10), 8);   // saiu pela frente, volta para o fundo
+  assert.equal(ciclo(12, 10), 2);
+  assert.ok(ciclo(8.6, 10) < -1.3); // passou do fim da faixa
 });
 test('coverflow', () => {
   assert.deepEqual(coverflow(0), { tx: 0, ry: 0, s: 1, z: 10, o: 1 });
