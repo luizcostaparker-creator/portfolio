@@ -14,8 +14,8 @@ function img(a, alt, grande) {
 }
 
 const grid = $('grid'), open = $('open'), fan = $('fan'), cap = $('cap'), feats = $('feats'), credito = $('credito');
-const prev = $('prev'), next = $('next'), btnFechar = $('fechar');
-let last, cur = 0, shots = [], caps = [], fechando = false;
+const prev = $('prev'), next = $('next'), btnFechar = $('fechar'), zoom = $('zoom'), btnAmpliar = $('ampliar');
+let last, cur = 0, shots = [], caps = [], arqs = [], fechando = false;
 
 PROJETOS.forEach((p, i) => {
   const b = el('button', 'folder' + (p.principal ? ' big' : ''));
@@ -40,13 +40,13 @@ function place(pos) {
 }
 function go(i) {
   cur = Math.max(0, Math.min(shots.length - 1, i)); place(cur);
-  cap.replaceChildren(el('b', '', caps[cur]), el('small', '', `${cur + 1} / ${shots.length} · arraste para o lado`));
+  cap.replaceChildren(el('b', '', caps[cur]), el('small', '', `${cur + 1} / ${shots.length} · arraste para o lado · toque para ampliar`));
   prev.disabled = cur === 0; next.disabled = cur === shots.length - 1;
 }
 
 function abrir(p, b) {
   if (fechando || open.classList.contains('on')) return;
-  last = b; cur = 0; caps = p.prints.map((s) => s.legenda);
+  last = b; cur = 0; caps = p.prints.map((s) => s.legenda); arqs = p.prints.map((s) => s.arquivo);
   const lip = el('div', 'lip'), t = el('b', '', p.titulo); t.id = 'ot';
   lip.append(t, el('span', '', p.descricao));
   shots = p.prints.map((s) => { const d = el('div', 'shot'); d.append(img(s.arquivo, s.legenda, true)); return d; });
@@ -67,8 +67,23 @@ function abrir(p, b) {
   btnFechar.focus({ preventScroll: true });
 }
 
+// ampliar: a imagem do centro cobre a tela; toque, clique ou Esc fecham
+function ampliar() {
+  const i = zoom.firstElementChild;
+  i.src = srcPrint(arqs[cur], 1600); i.alt = caps[cur];
+  zoom.hidden = false; zoom.getBoundingClientRect(); zoom.classList.add('on'); zoom.focus();
+}
+function reduzir() {
+  if (zoom.hidden) return;
+  zoom.classList.remove('on');
+  setTimeout(() => { zoom.hidden = true; btnAmpliar.focus({ preventScroll: true }); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 200);
+}
+zoom.addEventListener('click', reduzir);
+btnAmpliar.addEventListener('click', ampliar);
+
 function fechar() {
   if (!open.classList.contains('on') || fechando) return;
+  if (!zoom.hidden) { zoom.hidden = true; zoom.classList.remove('on'); }
   fechando = true;
   const f = last, extras = [feats, credito, open.querySelector('.nav'), btnFechar];
   const limpa = () => {
@@ -113,15 +128,24 @@ prev.addEventListener('click', () => go(cur - 1));
 next.addEventListener('click', () => go(cur + 1));
 
 // arrastar: a posição acompanha o dedo/mouse e encaixa na imagem mais próxima ao soltar
-let x0 = null, w = 1;
-fan.addEventListener('pointerdown', (e) => { if (fechando || e.button) return; x0 = e.clientX; w = shots[0].offsetWidth * 0.6; fan.setPointerCapture(e.pointerId); fan.classList.add('drag'); });
-fan.addEventListener('pointermove', (e) => { if (x0 !== null) place(Math.max(-0.4, Math.min(shots.length - 0.6, cur - (e.clientX - x0) / w))); });
-const solta = (e) => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; fan.classList.remove('drag'); go(Math.round(cur - dx / w)); };
-fan.addEventListener('pointerup', solta); fan.addEventListener('pointercancel', solta);
+// usa o último X do movimento (no cancelamento o navegador pode mandar X=0, o que fazia a imagem "pular");
+// cancelado (o dedo virou rolagem da página) = volta para a imagem atual; toque sem arrastar = ampliar
+let x0 = null, xUlt = 0, w = 1;
+fan.addEventListener('pointerdown', (e) => { if (fechando || e.button) return; x0 = xUlt = e.clientX; w = shots[0].offsetWidth * 0.6; fan.setPointerCapture(e.pointerId); fan.classList.add('drag'); });
+fan.addEventListener('pointermove', (e) => { if (x0 === null) return; xUlt = e.clientX; place(Math.max(-0.4, Math.min(shots.length - 0.6, cur - (xUlt - x0) / w))); });
+fan.addEventListener('pointerup', (e) => {
+  if (x0 === null) return;
+  const dx = xUlt - x0; x0 = null; fan.classList.remove('drag');
+  if (Math.abs(dx) > 6) return go(Math.round(cur - dx / w));
+  const s = document.elementFromPoint(e.clientX, e.clientY)?.closest('.shot'), i = shots.indexOf(s);
+  go(cur); if (i === cur) ampliar(); else if (i >= 0) go(i);
+});
+fan.addEventListener('pointercancel', () => { if (x0 === null) return; x0 = null; fan.classList.remove('drag'); go(cur); });
 
 addEventListener('keydown', (e) => {
   if (!open.classList.contains('on')) return;
-  if (e.key === 'Escape') fechar();
+  if (e.key === 'Escape') return zoom.hidden ? fechar() : reduzir();
+  if (!zoom.hidden) { if (e.key === 'Tab') { e.preventDefault(); zoom.focus(); } return; }
   else if (!fechando && e.key === 'ArrowLeft') go(cur - 1);
   else if (!fechando && e.key === 'ArrowRight') go(cur + 1);
   else if (e.key === 'Tab') { // mantém o foco dentro do diálogo

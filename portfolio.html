@@ -21,22 +21,31 @@
 <link rel="stylesheet" href="css/portfolio.css">
 </head>
 <body>
-<header class="top"><a href="index.html">← Início</a><span class="k">Portfólio</span><a href="sobre.html">Conheça sobre mim</a></header>
+<header class="top"><a href="index.html">← Início</a><span class="k">Portfólio</span><a class="ir" href="sobre.html">Conheça sobre mim →</a></header>
 <main>
   <section class="intro">
     <h1>Ferramentas que criei na obra</h1>
     <p>Passe o mouse para espiar. Clique para abrir a pasta.</p>
   </section>
   <div class="grid" id="grid"></div>
+  <section class="contact convite">
+    <div><h2>Se interessou em aplicar algumas dessas soluções em sua obra?</h2><p>Entre em contato.</p></div>
+    <nav class="soc" aria-label="Contato">
+      <a class="in" href="https://www.linkedin.com/in/luiz-miguel-costa-santos-3752192b0" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4v15h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.84-2.05 3.79-2.05 4.05 0 4.8 2.67 4.8 6.13V23h-4v-7.1c0-1.7-.03-3.88-2.36-3.88-2.37 0-2.73 1.85-2.73 3.76V23H8V8z"/></svg><span>LinkedIn</span></a>
+      <a class="gh" href="https://github.com/luizcostaparker-creator" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg><span>GitHub</span></a>
+      <a class="em" href="mailto:luizmiguelcs04@gmail.com" aria-label="E-mail"><svg viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>E-mail</span></a>
+    </nav>
+  </section>
 </main>
 
 <div class="open" id="open" role="dialog" aria-modal="true" aria-labelledby="ot">
   <div class="wrap">
     <button type="button" class="close" id="fechar">Fechar ✕</button>
     <div class="fan" id="fan" role="group" aria-roledescription="carrossel"></div>
-    <div class="nav"><button type="button" id="prev" aria-label="Imagem anterior">‹</button><div class="cap" aria-live="polite" id="cap"></div><button type="button" id="next" aria-label="Próxima imagem">›</button></div>
+    <div class="nav"><button type="button" id="prev" aria-label="Imagem anterior">‹</button><div class="cap" aria-live="polite" id="cap"></div><button type="button" id="next" aria-label="Próxima imagem">›</button><button type="button" id="ampliar" class="amp" aria-label="Ampliar imagem">⤢</button></div>
     <div class="feats" id="feats"></div>
     <p class="credito" id="credito"></p>
+    <button type="button" class="zoom" id="zoom" aria-label="Fechar imagem ampliada" hidden><img alt=""></button>
   </div>
 </div>
 

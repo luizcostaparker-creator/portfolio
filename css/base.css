@@ -7,4 +7,22 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-bottom:1px solid var(--line)}
 .top a{text-decoration:none;color:var(--mut);font-size:14px}
 .top a:hover{color:var(--fg)}
+/* título da barra maior sem mudar a altura da barra (margem negativa) */
+.top .k{font-size:20px;letter-spacing:.2em;margin-block:-6px}
+.top a.ir{color:var(--fg);font-weight:600;font-size:15px;padding:9px 16px;border:1.5px solid var(--acc);border-radius:999px;margin-block:-10px;background:rgba(245,165,36,.08)}
+.top a.ir:hover{background:var(--acc);color:var(--bg)}
+/* contato (compartilhado pelas páginas) */
+.contact{border:1px solid var(--line);border-radius:18px;padding:34px;background:linear-gradient(160deg,#151c27,#0f141c);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.contact h2{margin:0}
+.contact p{color:var(--mut);margin-top:6px}
+.soc{display:flex;gap:14px}
+.soc a{position:relative;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:var(--fg);border:1px solid var(--line);background:var(--card);transition:transform .25s cubic-bezier(.22,1,.36,1),background .25s,border-color .25s,color .25s}
+.soc a svg{width:22px;height:22px;fill:currentColor}
+.soc a.em svg{fill:none}
+.soc a:hover,.soc a:focus-visible{color:#fff;transform:translateY(-4px)}
+.soc .in:hover,.soc .in:focus-visible{background:#0a66c2;border-color:#0a66c2}
+.soc .gh:hover,.soc .gh:focus-visible{background:#6e7681;border-color:#6e7681}
+.soc .em:hover,.soc .em:focus-visible{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.soc a span{position:absolute;top:calc(100% + 8px);font-size:12px;color:var(--mut);opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s;pointer-events:none}
+.soc a:hover span,.soc a:focus-visible span{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
