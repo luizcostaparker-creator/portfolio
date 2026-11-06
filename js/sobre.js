@@ -74,3 +74,23 @@ bt.addEventListener('click', () => {
   setTimeout(() => cloud.classList.remove('anim'), 650);
 });
 addEventListener('resize', () => { if (org) aGrade(); else desenha(); });
+
+// Congonhas: balão com mapa e dados — abre ao passar o mouse (desktop) ou ao tocar/Enter; Esc ou clique fora fecha.
+// O mapa só carrega na primeira abertura.
+const cid = document.querySelector('.cid'), balao = document.getElementById('balao');
+let tFecha;
+function abreBalao() {
+  clearTimeout(tFecha);
+  const f = balao.querySelector('iframe');
+  if (!f.src) f.src = f.dataset.src;
+  balao.hidden = false; cid.setAttribute('aria-expanded', 'true');
+}
+function fechaBalao() { balao.hidden = true; cid.setAttribute('aria-expanded', 'false'); }
+cid.addEventListener('click', () => (balao.hidden ? abreBalao() : fechaBalao()));
+if (matchMedia('(hover: hover)').matches) {
+  const caixa = cid.parentElement;
+  caixa.addEventListener('pointerenter', abreBalao);
+  caixa.addEventListener('pointerleave', () => { tFecha = setTimeout(fechaBalao, 250); });
+}
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && !balao.hidden) { fechaBalao(); cid.focus(); } });
+addEventListener('pointerdown', (e) => { if (!balao.hidden && !cid.parentElement.contains(e.target)) fechaBalao(); });

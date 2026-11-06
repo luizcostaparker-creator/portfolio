@@ -9,7 +9,24 @@ h1{font-size:clamp(40px,6vw,72px);line-height:1;letter-spacing:-.03em;margin-top
 .facts{display:grid;gap:10px}
 .fact{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px}
 .fact small{display:block;color:var(--mut);font:11px ui-monospace,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase}
-.fact b{font-size:17px}
+.fact b{font-size:17px;display:block}
+.fact b+b{margin-top:2px}
+/* Congonhas em destaque com balão (mapa + dados) */
+.cidade{position:relative;display:inline-block}
+.cid{font:inherit;color:var(--acc);font-weight:600;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline dotted 1.5px;text-underline-offset:4px}
+.balao{position:absolute;left:0;top:calc(100% + 10px);z-index:20;width:min(560px,90vw);display:grid;grid-template-columns:1fr 190px;gap:12px;padding:12px;
+       background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.6);font-size:14px;line-height:1.4;color:var(--fg)}
+.balao[hidden]{display:none}
+.balao::before{content:"";position:absolute;left:28px;top:-7px;width:12px;height:12px;background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.mapa{display:block}
+.mapa iframe{display:block;width:100%;height:220px;border:0;border-radius:10px;background:#0d1219}
+.mapa small{display:block;margin-top:4px;font-size:11px;color:var(--mut)}
+.dados{display:grid;gap:8px;align-content:start}
+.dado{display:block;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#0f141c}
+.dado small{display:block;color:var(--mut);font:10px ui-monospace,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase}
+.dado b{display:block;font-size:15px;color:var(--acc)}
+.dado i{display:block;font-style:normal;font-size:11px;color:var(--mut);margin-top:2px}
+@media (max-width:620px){.balao{position:fixed;left:5vw;right:5vw;top:auto;bottom:16px;width:auto;grid-template-columns:1fr}.balao::before{display:none}.mapa iframe{height:170px}}
 h2{font-size:28px;letter-spacing:-.02em;margin:60px 0 8px}
 .sub{color:var(--mut);margin-bottom:34px}
 
