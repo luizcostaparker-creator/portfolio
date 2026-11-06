@@ -34,6 +34,7 @@ h2{font-size:28px;letter-spacing:-.02em;margin:60px 0 8px}
 .tools-head .sub{margin-bottom:24px}
 .org{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font:inherit;font-size:14px;cursor:pointer;margin-bottom:24px}
 .org:hover{border-color:var(--acc)}
+main{overflow-x:clip}
 .cloud{list-style:none;padding:0;position:relative;height:440px;max-width:600px;margin:0 auto}
 .cloud.rv{transition:height .5s cubic-bezier(.22,1,.36,1),opacity .7s,transform .7s cubic-bezier(.22,1,.36,1)}
 .cloud.anim li{transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .4s}
