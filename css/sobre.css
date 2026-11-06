@@ -55,8 +55,8 @@ h2{font-size:28px;letter-spacing:-.02em;margin:60px 0 8px}
 .soc a:hover,.soc a:focus-visible{color:#fff;transform:translateY(-4px)}
 .soc .in:hover,.soc .in:focus-visible{background:#0a66c2;border-color:#0a66c2}
 .soc .gh:hover,.soc .gh:focus-visible{background:#6e7681;border-color:#6e7681}
-.soc .em:hover,.soc .em:focus-visible{background:var(--acc);border-color:var(--acc)}
-.soc a span{position:absolute;top:calc(100% + 8px);font-size:12px;color:var(--mut);opacity:0;transform:translateY(-4px);transition:.2s;pointer-events:none}
+.soc .em:hover,.soc .em:focus-visible{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.soc a span{position:absolute;top:calc(100% + 8px);font-size:12px;color:var(--mut);opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s;pointer-events:none}
 .soc a:hover span,.soc a:focus-visible span{opacity:1;transform:none}
 @media (max-width:760px){.intro{grid-template-columns:1fr}.top{padding:16px 20px}}
 @media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}.cloud.anim li{transition:none}.item.on .card{transform:none}}
