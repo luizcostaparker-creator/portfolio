@@ -3,16 +3,16 @@ import { ciclo } from './geo.js?v=2';
 // Escada: cada tela é um degrau mais alto, mais fundo e mais à esquerda. Rolar/arrastar desce os degraus;
 // passar o mouse levanta o degrau. Parada, a escada anda sozinha devagar.
 const ITENS = [
-  ['central-1-hh', 'Central de Controle Civil', 'Painel de H.H da semana'],
+  ['central-1-hh', 'Central de Programação', 'Análise de recursos da programação'],
   ['mapa-1-areas', 'Mapa Geral', 'Áreas sobre a foto do drone'],
   ['pav-3-historico', 'Memorial de Pavimentação', 'Programado × executado'],
   ['pre-1-salas', 'Levantamento por Sala', 'Salas reconhecidas na planta'],
-  ['central-2-aderencia', 'Central de Controle Civil', 'Aderência por engenheiro'],
+  ['central-2-aderencia', 'Central de Programação', 'Aderência e análise de recursos por liderança'],
   ['mapa-2-gantt', 'Mapa Geral', 'Gantt semanal por área'],
   ['pav-2-calculo', 'Memorial de Pavimentação', 'Cálculo por estaca'],
-  ['central-4-programacao', 'Central de Controle Civil', 'Programação da semana'],
+  ['central-4-programacao', 'Central de Programação', 'Programação'],
   ['pre-2-quantitativo', 'Levantamento por Sala', 'Quantitativo por sala'],
-  ['central-5-banco', 'Central de Controle Civil', 'Banco de dados do take-off'],
+  ['central-5-banco', 'Central de Programação', 'Banco de dados'],
 ];
 const N = ITENS.length, DX = -88, DY = -80, DZ = -200, RY = 24, RX = 3;
 const $ = (id) => document.getElementById(id);

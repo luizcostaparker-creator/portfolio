@@ -34,3 +34,12 @@ test('só o Mapa Geral tem crédito (CC BY-SA)', () => {
 test('srcPrint devolve caminho de imagem para os 17 prints', () => {
   for (const a of ARQUIVOS) for (const l of [480, 1600]) assert.match(srcPrint(a, l), /^img\/.+\.(svg|webp)$/);
 });
+
+test('Central: card do sistema, descrição em cada figura e estudo de caso', () => {
+  const c = PROJETOS[0];
+  assert.equal(c.titulo, 'Central de Programação');
+  assert.ok(c.sistema);
+  assert.ok(c.prints.every((x) => x.descricao), 'toda figura da Central tem descrição');
+  assert.ok(c.estudo.asis.itens.length && c.estudo.tobe.itens.length);
+  assert.equal(c.estudo.ciclo.passos.at(-1)[0], 'Agir');
+});

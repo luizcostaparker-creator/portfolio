@@ -1,5 +1,6 @@
-import { PROJETOS, srcPrint, retrato } from './projetos.js?v=2';
+import { PROJETOS, srcPrint, retrato } from './projetos.js?v=3';
 import { coverflow } from './geo.js?v=2';
+import { estudo } from './estudo.js?v=3';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
@@ -14,8 +15,9 @@ function img(a, alt, grande) {
 }
 
 const grid = $('grid'), open = $('open'), fan = $('fan'), cap = $('cap'), feats = $('feats'), credito = $('credito');
+const sis = $('sis'), sisK = $('sisk'), sisT = $('ot'), sisP = $('sisp');
 const prev = $('prev'), next = $('next'), btnFechar = $('fechar'), zoom = $('zoom'), btnAmpliar = $('ampliar');
-let last, cur = 0, shots = [], caps = [], arqs = [], fechando = false;
+let last, cur = 0, shots = [], caps = [], arqs = [], descs = [], lipT, lipD, fechando = false;
 
 PROJETOS.forEach((p, i) => {
   const b = el('button', 'folder' + (p.principal ? ' big' : ''));
@@ -40,21 +42,26 @@ function place(pos) {
 }
 function go(i) {
   cur = Math.max(0, Math.min(shots.length - 1, i)); place(cur);
-  cap.replaceChildren(el('b', '', caps[cur]), el('small', '', `${cur + 1} / ${shots.length} · arraste para o lado · toque para ampliar`));
+  // card abaixo das imagens: legenda no padrão ABNT ("Figura N – título")
+  lipT.textContent = `Figura ${cur + 1} – ${caps[cur]}`; lipD.textContent = descs[cur]; lipD.hidden = !descs[cur];
+  cap.replaceChildren(el('small', '', `${cur + 1} / ${shots.length} · arraste para o lado · toque para ampliar`));
   prev.disabled = cur === 0; next.disabled = cur === shots.length - 1;
 }
 
 function abrir(p, b) {
   if (fechando || open.classList.contains('on')) return;
-  last = b; cur = 0; caps = p.prints.map((s) => s.legenda); arqs = p.prints.map((s) => s.arquivo);
-  const lip = el('div', 'lip'), t = el('b', '', p.titulo); t.id = 'ot';
-  lip.append(t, el('span', '', p.descricao));
+  last = b; cur = 0; caps = p.prints.map((s) => s.legenda); arqs = p.prints.map((s) => s.arquivo); descs = p.prints.map((s) => s.descricao);
+  sisK.textContent = p.principal ? 'Projeto principal' : 'Projeto'; sisT.textContent = p.titulo; sisP.textContent = p.sistema || p.descricao;
+  const lip = el('div', 'lip'); lipT = el('b'); lipD = el('span', 'ld');
+  lip.append(lipT, lipD, el('small', '', 'Fonte: o autor (2026).'));
   shots = p.prints.map((s) => { const d = el('div', 'shot'); d.append(img(s.arquivo, s.legenda, true)); return d; });
   fan.replaceChildren(el('div', 'fback'), ...shots, lip);
   shots.forEach((s, i) => { s.style.transitionDelay = (0.05 + i * 0.07) + 's'; });
-  feats.replaceChildren(...p.funcoes.map(([h, d]) => {
+  // com estudo de caso, ele entra no lugar dos cartões de funcionalidades
+  feats.classList.toggle('com-estudo', !!p.estudo);
+  feats.replaceChildren(...(p.estudo ? [estudo(p.estudo)] : p.funcoes.map(([h, d]) => {
     const f = el('div', 'feat'), bb = el('b'); bb.append(el('i'), h); f.append(bb, el('p', '', d)); return f;
-  }));
+  })));
   credito.replaceChildren();
   if (p.credito) {
     const c = p.credito, a = (href, txt) => { const x = el('a', '', txt); x.href = href; x.target = '_blank'; x.rel = 'noopener noreferrer'; return x; };
@@ -85,7 +92,7 @@ function fechar() {
   if (!open.classList.contains('on') || fechando) return;
   if (!zoom.hidden) { zoom.hidden = true; zoom.classList.remove('on'); }
   fechando = true;
-  const f = last, extras = [feats, credito, open.querySelector('.nav'), btnFechar];
+  const f = last, extras = [sis, feats, credito, open.querySelector('.nav'), btnFechar];
   const limpa = () => {
     open.classList.remove('on'); open.style.cssText = ''; fan.style.cssText = ''; extras.forEach((e) => { e.style.cssText = ''; });
     f.style.visibility = ''; fechando = false; f.focus();
