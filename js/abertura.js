@@ -4,11 +4,11 @@ import { ciclo } from './geo.js?v=2';
 // passar o mouse levanta o degrau. Parada, a escada anda sozinha devagar.
 const ITENS = [
   ['central-1-hh', 'Central de Programação', 'Análise de recursos da programação'],
-  ['mapa-1-areas', 'Mapa Geral', 'Áreas sobre a foto do drone'],
+  ['mapa-1-areas', 'De olho na obra', 'Aboveground'],
   ['pav-3-historico', 'Memorial de Pavimentação', 'Programado × executado'],
   ['pre-1-salas', 'Levantamento por Sala', 'Salas reconhecidas na planta'],
   ['central-2-aderencia', 'Central de Programação', 'Aderência e análise de recursos por liderança'],
-  ['mapa-2-gantt', 'Mapa Geral', 'Gantt semanal por área'],
+  ['mapa-2-gantt', 'De olho na obra', 'Programação semanal'],
   ['pav-2-calculo', 'Memorial de Pavimentação', 'Cálculo por estaca'],
   ['central-4-programacao', 'Central de Programação', 'Programação'],
   ['pre-2-quantitativo', 'Levantamento por Sala', 'Quantitativo por sala'],

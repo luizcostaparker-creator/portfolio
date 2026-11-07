@@ -27,7 +27,7 @@ test('nenhum termo proibido nos textos', { skip: SKIP }, () => {
   for (const { re, desc } of TERMOS) assert.ok(!re.test(txt), desc);
 });
 
-test('só o Mapa Geral tem crédito (CC BY-SA)', () => {
+test('só o De olho na obra tem crédito (CC BY-SA)', () => {
   assert.deepEqual(PROJETOS.filter((p) => p.credito).map((p) => p.id), ['mapa']);
 });
 

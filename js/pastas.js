@@ -1,6 +1,6 @@
-import { PROJETOS, srcPrint, retrato } from './projetos.js?v=3';
+import { PROJETOS, srcPrint, retrato } from './projetos.js?v=4';
 import { coverflow } from './geo.js?v=2';
-import { estudo } from './estudo.js?v=3';
+import { estudo } from './estudo.js?v=4';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };

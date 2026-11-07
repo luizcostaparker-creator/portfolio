@@ -45,8 +45,8 @@ function coluna(cls, rot, { titulo, itens, pe }) {
   const c = el('div', 'col ' + cls), cab = el('div', 'cab'), ol = el('ol'), p = el('div', 'pe');
   cab.append(el('small', '', rot), el('b', '', titulo));
   itens.forEach((t) => ol.append(el('li', '', t)));
-  pe.forEach((t) => p.append(el('span', '', t)));
-  c.append(cab, ol, p);
+  c.append(cab, ol);
+  if (pe) { pe.forEach((t) => p.append(el('span', '', t))); c.append(p); }
   return c;
 }
 
