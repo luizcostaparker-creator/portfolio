@@ -5,13 +5,13 @@ import { ciclo } from './geo.js?v=2';
 const ITENS = [
   ['central-1-hh', 'Central de Programação', 'Análise de recursos da programação'],
   ['mapa-1-areas', 'De olho na obra', 'Aboveground'],
-  ['pav-3-historico', 'Memorial de Pavimentação', 'Programado × executado'],
-  ['pre-1-salas', 'Levantamento por Sala', 'Salas reconhecidas na planta'],
+  ['pav-3-historico', 'Central de Pavimento', 'Dashboard'],
+  ['pre-1-salas', 'Levantamento Arquitetônico', 'Mapeamento de salas'],
   ['central-2-aderencia', 'Central de Programação', 'Aderência e análise de recursos por liderança'],
   ['mapa-2-gantt', 'De olho na obra', 'Programação semanal'],
-  ['pav-2-calculo', 'Memorial de Pavimentação', 'Cálculo por estaca'],
+  ['pav-2-calculo', 'Central de Pavimento', 'Registro de programação e avanço'],
   ['central-4-programacao', 'Central de Programação', 'Programação'],
-  ['pre-2-quantitativo', 'Levantamento por Sala', 'Quantitativo por sala'],
+  ['pre-2-quantitativo', 'Levantamento Arquitetônico', 'Banco de dados'],
   ['central-5-banco', 'Central de Programação', 'Banco de dados'],
 ];
 const N = ITENS.length, DX = -88, DY = -80, DZ = -200, RY = 24, RX = 3;

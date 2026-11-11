@@ -1,4 +1,4 @@
-import { PROJETOS, srcPrint, retrato } from './projetos.js?v=4';
+import { PROJETOS, srcPrint, retrato } from './projetos.js?v=7';
 import { coverflow } from './geo.js?v=2';
 import { estudo } from './estudo.js?v=4';
 
